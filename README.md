@@ -1,6 +1,6 @@
-# BV Geert — Shortener template
+# dok — Shortener template
 
-Bitly-style URL forwarder template for [BV Geert](https://bvgeert.com) domains.
+Bitly-style URL forwarder template for [dok](https://github.com/appfabriek/dok) domains.
 
 Currently in use on **[nm.nu](https://nm.nu)** and **[geert.link](https://geert.link)**.
 
@@ -10,7 +10,7 @@ Currently in use on **[nm.nu](https://nm.nu)** and **[geert.link](https://geert.
 - **Admin chrome**: clean dark dashboard with `Links` + `Settings` nav, auto-redirects logged-in admins to `/admin/links`
 - **Non-admin lockout**: regular users who sign in see a "nothing here for you" card with a logout button — no nav, no access
 
-Authorization is enforced by BV Geert (`user.admin?`). This template just renders accordingly.
+Authorization is enforced by dok (`user.admin?`). This template just renders accordingly.
 
 ## How to use this template
 
@@ -32,7 +32,7 @@ There is no pull/sync and no “Sync now”. The old webhook (`/webhooks/github/
 | `css/app.css`    | Styling for the logged-in shell + Rails content        |
 | `images/`        | Logo/favicon served by TemplateServer (`/images/*`)    |
 | `icons/`         | Extra icon pack (not served unless published under `images/`) |
-| `.github/workflows/publish-template.yml` | Push snapshot to BV Geert |
+| `.github/workflows/publish-template.yml` | Push snapshot to dok |
 | `.github/actions/publish-template/` | Composite action + `publish.sh` |
 
 ## Placeholders
@@ -43,7 +43,7 @@ Used in `index.html` (public):
 |--------------------|-----------------------------------------------------------|
 | `{{login_form}}`   | Full OAuth + magic-link login form (with built-in styling) |
 | `{{login_button}}` | Single primary OAuth button                                |
-| `{{footer}}`       | BV Geert footer                                            |
+| `{{footer}}`       | dok footer                                            |
 | `{{csrf_meta}}`    | CSRF meta tags                                             |
 | `{{brand_name}}`   | Your domain's brand name                                   |
 | `{{brand_logo}}`   | `/images/logo.png` from this tree, else `/logokl.svg` |
@@ -58,7 +58,7 @@ Used in `app.html` (logged-in):
 | `{{flash}}`        | Toast container                                            |
 | `{{user_menu}}`    | Email + logout button                                      |
 | `{{user_role}}`    | `"admin"`, `"user"`, or `"guest"` — used for role gating  |
-| `{{footer}}`       | BV Geert footer                                            |
+| `{{footer}}`       | dok footer                                            |
 | `{{csrf_meta}}`    | CSRF meta tags                                             |
 | `{{brand_name}}`   | Your domain's brand name                                   |
 | `{{brand_logo}}`   | `/images/logo.png` from this tree, else `/logokl.svg` |
@@ -73,7 +73,7 @@ The shell uses `<body data-role="{{user_role}}">` plus CSS to gate the admin chr
 - `body[data-role="user"] .admin-only { display: none }` — hides nav and content
 - `body[data-role="user"] .user-empty { display: flex }` — shows the lockout card
 
-No JavaScript, no Rails changes. Authorization is still enforced by BV Geert; this is purely cosmetic.
+No JavaScript, no Rails changes. Authorization is still enforced by dok; this is purely cosmetic.
 
 ## Publish on push
 
@@ -114,5 +114,5 @@ The defaults are intentionally generic. Tweak:
 
 ## Docs
 
-- [Domain templates](https://github.com/Geert/bvgeert/blob/main/docs/features/domain-templates.md)
-- [Custom landing pages & app shell](https://github.com/Geert/bvgeert/blob/main/docs/features/custom-landing-pages.md)
+- [Domain templates](https://github.com/appfabriek/dok/blob/main/docs/features/domain-templates.md)
+- [Custom landing pages & app shell](https://github.com/appfabriek/dok/blob/main/docs/features/custom-landing-pages.md)

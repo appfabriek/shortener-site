@@ -1,5 +1,5 @@
-name: Publish template to BVGeert domain
-description: Push template files (HTML/CSS/JS/images) into a BVGeert domain via publish token
+name: Publish template to dok domain
+description: Push template files (HTML/CSS/JS/images) into a dok domain via publish token
 inputs:
   host:
     description: Target host (accept.*, staging.*, or production hostname)

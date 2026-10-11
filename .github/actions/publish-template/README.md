@@ -1,4 +1,4 @@
-# Publish template → BVGeert domain
+# Publish template → dok domain
 
 Push HTML/CSS/JS/images from a **template GitHub repo** into a domain (custom mode).
 
