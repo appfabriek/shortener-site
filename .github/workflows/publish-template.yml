@@ -1,4 +1,4 @@
-name: Publish template to BVGeert
+name: Publish template to dok
 
 on:
   push:

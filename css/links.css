@@ -3,7 +3,7 @@
    Composer (make a link), result (copy / share / QR) and the link list.
    Loaded by app.html (admin pages) and index.html (the admin home console),
    so both render the same markup the same way. Targets the semantic short-*
-   classes bvgeert renders in shortener mode. Tokens fall back to the landing
+   classes dok renders in shortener mode. Tokens fall back to the landing
    palette when a page doesn't define them.
 ============================================================================ */
 

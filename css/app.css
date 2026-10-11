@@ -1,7 +1,7 @@
 /* ============================================================================
    app.css — logged-in shell + shortener views
    Dark, calm, generous whitespace. Targets the semantic .short-* classes
-   that bvgeert renders for shortener-mode domains.
+   that dok renders for shortener-mode domains.
 ============================================================================ */
 
 :root {
@@ -174,7 +174,7 @@ body[data-role="user"] .app-main { padding-top: 0; }
 .app-footer .rounded-full { background: var(--muted-soft); }
 .app-footer a:hover { color: var(--text); }
 
-/* Quash the white-badge version tag in bvgeert footer (not the separator dot). */
+/* Quash the white-badge version tag in dok footer (not the separator dot). */
 .app-footer code,
 .app-footer .badge,
 .app-footer .font-mono {
