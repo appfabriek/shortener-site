@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {{csrf_meta}}
+  <title>koek.in</title>
+  <meta name="description" content="Korte links van Geert Rozendom.">
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="/css/bare.css">
+  <link rel="icon" href="{{brand_logo}}">
+</head>
+<body data-role="{{user_role}}" style="--bare-dot:#B8732E">
+  <main class="bare guest-only">
+    <h1>koek<span class="tld">.in</span><span class="rest">/…</span></h1>
+    <p>Korte links van Geert Rozendom.</p>
+    <p class="bare-note">Werkt een link niet? <a href="mailto:support@koek.in">Mail me</a>.</p>
+    <p class="bare-note bare-admin"><a href="/session/new">Inloggen</a></p>
+  </main>
+  {{footer}}
+</body>
+</html>

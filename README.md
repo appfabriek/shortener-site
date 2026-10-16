@@ -2,11 +2,11 @@
 
 Bitly-style URL forwarder template for [dok](https://github.com/appfabriek/dok) domains.
 
-Currently in use on **[nm.nu](https://nm.nu)** and **[geert.link](https://geert.link)**.
+In use on **geert.link** and **nm.nu** (shorteners, with the admin shell) and on **koek.in**, **dox.onl** and **knst.link** (only the bare home).
 
 ## What it does
 
-- **Public landing**: a dark, focused promo page that says "private URL forwarder — sign in if you're invited"
+- **Public landing**: a bare page per domain (board "Korte links"): the name, one line on what the links are, "Mail me" and a small sign-in link. Built by `scripts/build-bare.py` into `index.html` and `hosts/<host>/index.html`
 - **Admin chrome**: clean dark dashboard with `Links` + `Settings` nav, auto-redirects logged-in admins to `/admin/links`
 - **Non-admin lockout**: regular users who sign in see a "nothing here for you" card with a logout button — no nav, no access
 
@@ -25,8 +25,9 @@ There is no pull/sync and no “Sync now”. The old webhook (`/webhooks/github/
 
 | File             | Purpose                                                |
 |------------------|--------------------------------------------------------|
-| `index.html`     | Public landing (English)                               |
-| `index.nl.html`  | Public landing (Dutch)                                 |
+| `index.html`     | Bare home for geert.link + the admin console, built by `scripts/build-bare.py` |
+| `hosts/<host>/index.html` | Bare home per domain; the workflow copies `hosts/<host>/` over the tree |
+| `css/bare.css`, `fonts/` | Bare home styling, JetBrains Mono (OFL) |
 | `app.html`       | Logged-in shell (wraps every authenticated page)       |
 | `css/landing.css`| Styling for the public landing                         |
 | `css/app.css`    | Styling for the logged-in shell + Rails content        |
