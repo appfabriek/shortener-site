@@ -1,104 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   {{csrf_meta}}
-  <title>{{brand_name}} — Short links that work</title>
-  <meta name="description" content="A private URL shortener for teams: short, fast links on your own domain. No public sign-ups, no trackers; only admins create links.">
+  <title>geert.link</title>
+  <meta name="description" content="Korte links van Geert Rozendom.">
+  <meta name="robots" content="noindex">
   <link rel="stylesheet" href="/css/landing.css">
   <link rel="stylesheet" href="/css/links.css">
-  <!-- {{brand_logo}} is /images/logo.png from this tree, else the platform mark. -->
+  <link rel="stylesheet" href="/css/bare.css">
   <link rel="icon" href="{{brand_logo}}">
-  <link rel="icon" href="/images/favicon.ico" sizes="any">
-  <link rel="apple-touch-icon" href="{{brand_apple_touch_icon}}">
-  <link rel="apple-touch-icon" href="/images/apple-touch.png">
 </head>
-<body data-role="{{user_role}}">
-  <header class="landing-nav">
+<body data-role="{{user_role}}" style="--bare-dot:#111111">
+  <header class="landing-nav admin-only">
     <a href="/" class="landing-brand">
       <img class="brand-logo" src="{{brand_logo}}" width="28" height="28" alt="" decoding="async"
            onerror="this.onerror=null;this.src='/images/logo.png'">
       {{brand_name}}
     </a>
-    <nav class="guest-only">
-      <a href="#what">What</a>
-      <a href="#why">Why</a>
-      <a href="#contact">Contact</a>
-    </nav>
-    <nav class="admin-only">
+    <nav>
       <a href="/admin/links">Links</a>
-      <a href="/admin/settings">Settings</a>
+      <a href="/admin/settings">Instellingen</a>
     </nav>
   </header>
-
-  <main>
-    <!-- Logged-in admin: the link console (create form + recent links).
-         Injected by Rails (HomeController#index) into this section. -->
-    <section class="console admin-only">
-      {{content}}
-    </section>
-
-    <!-- Public marketing (logged-out visitors) -->
-    <section class="hero guest-only">
-      <div class="hero-inner">
-        <h1>Short links<br><span class="accent">that just work.</span></h1>
-        <p class="lede">
-          {{brand_name}} is a private URL forwarder for trusted teams.
-          Short, fast, branded — no public sign-ups, no junk.
-        </p>
-        <div class="hero-cta">
-          {{login_form}}
-          <a href="#what" class="ghost-btn">Learn more</a>
-        </div>
-        <p class="hero-note">Sign-in is restricted. Ask your administrator for access.</p>
-      </div>
-      <div class="hero-demo" aria-hidden="true">
-        <div class="demo-card">
-          <div class="demo-row"><span class="demo-key">/launch</span><span class="demo-arrow">→</span><span class="demo-target">github.com/yourteam/launch-2026</span></div>
-          <div class="demo-row"><span class="demo-key">/deck</span><span class="demo-arrow">→</span><span class="demo-target">drive.google.com/…/q3-deck.pdf</span></div>
-          <div class="demo-row"><span class="demo-key">/hire</span><span class="demo-arrow">→</span><span class="demo-target">careers.yourteam.com</span></div>
-          <div class="demo-row demo-row--new"><span class="demo-key">/new</span><span class="demo-arrow">→</span><span class="demo-target">type anything…</span></div>
-        </div>
-      </div>
-    </section>
-
-    <section id="what" class="features guest-only">
-      <h2>Built for teams that care about every link</h2>
-      <div class="feature-grid">
-        <article>
-          <h3>Memorable slugs</h3>
-          <p>Pick the slug yourself. <code>/launch</code> instead of <code>/aB7xK2</code>. Easier to share, harder to forget.</p>
-        </article>
-        <article>
-          <h3>Private by default</h3>
-          <p>No public form, no abuse. Only invited administrators can create or edit links.</p>
-        </article>
-        <article>
-          <h3>Branded domain</h3>
-          <p>Every short link wears your domain. Trust at a glance, no third-party shortener in the URL.</p>
-        </article>
-        <article>
-          <h3>Fast forwards</h3>
-          <p>Edge-cached redirects. Click, gone — under a hundred milliseconds.</p>
-        </article>
-      </div>
-    </section>
-
-    <section id="why" class="why guest-only">
-      <h2>Why not Bitly?</h2>
-      <p>
-        Public shorteners turn your links into ad-trackers, expire without warning, and get blocked by corporate firewalls.
-        {{brand_name}} is yours — no third party between you and the destination.
-      </p>
-    </section>
-
-    <section id="contact" class="contact guest-only">
-      <h2>Need access?</h2>
-      <p>Reach out to your team administrator. They can grant you sign-in rights to manage links.</p>
-    </section>
+  <!-- Link console (create form + recent links), injected by Rails (HomeController#index). -->
+  <section class="console admin-only">
+    {{content}}
+  </section>
+  <main class="bare guest-only">
+    <h1>geert<span class="tld">.link</span><span class="rest">/…</span></h1>
+    <p>Korte links van Geert Rozendom.</p>
+    <p class="bare-note">Werkt een link niet? <a href="mailto:support@geert.link">Mail me</a>.</p>
+    <p class="bare-note bare-admin"><a href="/session/new">Inloggen</a></p>
   </main>
-
   {{footer}}
 </body>
 </html>

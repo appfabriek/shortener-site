@@ -1,0 +1,46 @@
+/* Bare page for logged-out visitors (Claude Design board "Korte links").
+   Built by scripts/build-bare.py. landing.css stays for the admin console,
+   which is dark; these rules only apply when nobody is signed in as admin.
+   JetBrains Mono: SIL Open Font License 1.1, https://openfontlicense.org */
+
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("/fonts/jetbrains-mono-latin.woff2") format("woff2");
+}
+
+body:not([data-role="admin"]) {
+  --bare-ink: #111111;
+  --bare-mute: #6B6B6B;
+  --bare-faint: #B5B5B5;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  margin: 0;
+  background: #FFFFFF;
+  color: var(--bare-ink);
+  color-scheme: light;
+  font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+body:not([data-role="admin"]) a { color: var(--bare-ink); text-decoration: underline; text-underline-offset: 4px; }
+body:not([data-role="admin"]) a:hover { color: var(--bare-mute); }
+body:not([data-role="admin"]) a:focus-visible { outline: 2px solid var(--bare-ink); outline-offset: 3px; }
+
+.bare { width: 100%; max-width: 720px; margin: 0 auto; padding: 96px 24px; box-sizing: border-box; display: grid; gap: 24px; align-content: center; }
+.bare h1 { margin: 0; font-weight: 600; font-size: clamp(36px, 8vw, 64px); letter-spacing: -0.03em; line-height: 1; overflow-wrap: anywhere; }
+.bare h1 .tld { color: var(--bare-dot); }
+.bare h1 .rest { color: var(--bare-faint); }
+.bare p { margin: 0; font-size: 18px; line-height: 1.6; max-width: 34em; }
+.bare .bare-note { font-size: 16px; color: var(--bare-mute); }
+
+/* The Dok footer, quiet and in the same type. */
+body:not([data-role="admin"]) footer { background: transparent; border-top: 1px solid #EDEDED; color: var(--bare-mute); font-family: inherit; }
+body:not([data-role="admin"]) footer a { color: var(--bare-mute); }
+.bare-admin { font-size: 14px; }
+
+@media (max-width: 640px) {
+  .bare { padding: 64px 20px; }
+}

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {{csrf_meta}}
+  <title>knst.link</title>
+  <meta name="description" content="Korte links van Kunstmarkt: naar een aanmelding, een kraam of een kunstenaar.">
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="/css/bare.css">
+  <link rel="icon" href="{{brand_logo}}">
+</head>
+<body data-role="{{user_role}}" style="--bare-dot:#C2462B">
+  <main class="bare guest-only">
+    <h1>knst<span class="tld">.link</span><span class="rest">/…</span></h1>
+    <p>Korte links van Kunstmarkt: naar een aanmelding, een kraam of een kunstenaar.</p>
+    <p><a href="https://kunstmarkt.app">kunstmarkt.app ⟶</a></p>
+    <p class="bare-note">Werkt een link niet? <a href="mailto:support@knst.link">Mail me</a>.</p>
+    <p class="bare-note bare-admin"><a href="/session/new">Inloggen</a></p>
+  </main>
+  {{footer}}
+</body>
+</html>

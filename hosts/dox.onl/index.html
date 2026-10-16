@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {{csrf_meta}}
+  <title>dox.onl</title>
+  <meta name="description" content="Korte links naar documenten op thisdoc.online. Daar lees en onderteken je ze.">
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="/css/bare.css">
+  <link rel="icon" href="{{brand_logo}}">
+</head>
+<body data-role="{{user_role}}" style="--bare-dot:#2F5BD3">
+  <main class="bare guest-only">
+    <h1>dox<span class="tld">.onl</span><span class="rest">/…</span></h1>
+    <p>Korte links naar documenten op thisdoc.online. Daar lees en onderteken je ze.</p>
+    <p><a href="https://thisdoc.online">thisdoc.online ⟶</a></p>
+    <p class="bare-note">Werkt een link niet? <a href="mailto:support@dox.onl">Mail me</a>.</p>
+    <p class="bare-note bare-admin"><a href="/session/new">Inloggen</a></p>
+  </main>
+  {{footer}}
+</body>
+</html>
