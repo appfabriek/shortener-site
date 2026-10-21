@@ -19,19 +19,20 @@ jobs:
           - env: production
             host: nm.nu
             secret: BVG_TEMPLATE_TOKEN_NM_NU
-          # Not shorteners (yet): only the bare home, no admin shell (app.html).
+          # Not shorteners (yet): only the bare home, no admin shell (app.html),
+          # and the Appfabriek icon from hosts/<host>/images/.
           - env: production
             host: koek.in
             secret: BVG_TEMPLATE_TOKEN_KOEK_IN
-            paths: index.html,css/bare.css,fonts/**/*
+            paths: index.html,css/bare.css,fonts/**/*,images/logo.png,images/apple-touch.png
           - env: production
             host: dox.onl
             secret: BVG_TEMPLATE_TOKEN_DOX_ONL
-            paths: index.html,css/bare.css,fonts/**/*
+            paths: index.html,css/bare.css,fonts/**/*,images/logo.png,images/apple-touch.png
           - env: production
             host: knst.link
             secret: BVG_TEMPLATE_TOKEN_KNST_LINK
-            paths: index.html,css/bare.css,fonts/**/*
+            paths: index.html,css/bare.css,fonts/**/*,images/logo.png,images/apple-touch.png
     name: Publish → ${{ matrix.host }}
     steps:
       - uses: actions/checkout@v4
