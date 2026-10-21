@@ -32,6 +32,7 @@ There is no pull/sync and no “Sync now”. The old webhook (`/webhooks/github/
 | `css/landing.css`| Styling for the public landing                         |
 | `css/app.css`    | Styling for the logged-in shell + Rails content        |
 | `images/`        | Logo/favicon served by TemplateServer (`/images/*`)    |
+| `hosts/<host>/images/` | A host's own icon (`logo.png`, `apple-touch.png`): geert.link's mark; koek.in, dox.onl and knst.link have the Appfabriek icon, since the bare design has no mark |
 | `icons/`         | Extra icon pack (not served unless published under `images/`) |
 | `.github/workflows/publish-template.yml` | Push snapshot to dok |
 | `.github/actions/publish-template/` | Composite action + `publish.sh` |
