@@ -5,6 +5,10 @@ on:
     branches: [main]
   workflow_dispatch:
 
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -13,25 +17,15 @@ jobs:
       matrix:
         include:
           # Production Domain rows only. staging.*/accept.* have no Domain.
-          - env: production
-            host: geert.link
-            secret: BVG_TEMPLATE_TOKEN_GEERT_LINK
-          - env: production
-            host: nm.nu
-            secret: BVG_TEMPLATE_TOKEN_NM_NU
+          - host: geert.link
+          - host: nm.nu
           # Not shorteners (yet): only the bare home, no admin shell (app.html),
           # and the Appfabriek icon from hosts/<host>/images/.
-          - env: production
-            host: koek.in
-            secret: BVG_TEMPLATE_TOKEN_KOEK_IN
+          - host: koek.in
             paths: index.html,css/bare.css,fonts/**/*,images/logo.png,images/apple-touch.png
-          - env: production
-            host: dox.onl
-            secret: BVG_TEMPLATE_TOKEN_DOX_ONL
+          - host: dox.onl
             paths: index.html,css/bare.css,fonts/**/*,images/logo.png,images/apple-touch.png
-          - env: production
-            host: knst.link
-            secret: BVG_TEMPLATE_TOKEN_KNST_LINK
+          - host: knst.link
             paths: index.html,css/bare.css,fonts/**/*,images/logo.png,images/apple-touch.png
     name: Publish → ${{ matrix.host }}
     steps:
@@ -47,7 +41,6 @@ jobs:
         uses: ./.github/actions/publish-template
         with:
           host: ${{ matrix.host }}
-          token: ${{ secrets[matrix.secret] }}
           # Empty means the action's default set.
           paths: ${{ matrix.paths }}
           protocol: https

@@ -2,7 +2,6 @@
 set -euo pipefail
 
 : "${BVG_HOST:?}"
-: "${BVG_TOKEN:?}"
 
 PROTOCOL="${BVG_PROTOCOL:-https}"
 export BVG_PATHS="${BVG_PATHS:-css/**/*,js/**/*,images/**/*,fonts/**/*,**/*.html,manifest.json,browserconfig.xml,llms.txt,sitemap.xml,robots.txt}"
@@ -59,20 +58,60 @@ for f in files:
     print(f" - {f['path']} ({f['encoding']})", file=__import__("sys").stderr)
 PY
 
-url="${PROTOCOL}://${BVG_HOST}/api/v1/template/publish"
-echo "Publishing template to ${url}"
+# Without a dtt_ token: a GitHub Actions ID token per host (job permission
+# `id-token: write`), to staging.<host>, accept.<host> and <host> in that order
+# (BVG_ENVIRONMENTS). dok accepts it from the repo bound to the domain (dok#884).
+# With BVG_TOKEN: only BVG_HOST, as before.
+github_token() {
+  : "${ACTIONS_ID_TOKEN_REQUEST_URL:?Set permissions: id-token: write on the job}"
+  curl -sS -H "Authorization: bearer ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}" \
+    "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=$1" \
+    | python3 -c 'import json, sys; print(json.load(sys.stdin)["value"])'
+}
 
-tmp="$(mktemp)"
-code="$(curl -sS -o "$tmp" -w "%{http_code}" \
-  -X POST "$url" \
-  -H "Authorization: Bearer ${BVG_TOKEN}" \
-  -H "Content-Type: application/json" \
-  -H "Accept: application/json" \
-  --data @"/tmp/bvg-template-payload.json")"
+publish() {
+  local host="$1" token="$2"
+  local url="${PROTOCOL}://${host}/api/v1/template/publish"
+  echo "Publishing template to ${url}"
 
-cat "$tmp"
-echo
-if [[ "$code" != "200" ]]; then
-  echo "Publish failed with HTTP $code" >&2
-  exit 1
+  local tmp code
+  tmp="$(mktemp)"
+  code="$(curl -sS -o "$tmp" -w "%{http_code}" \
+    -X POST "$url" \
+    -H "Authorization: Bearer ${token}" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    --data @"/tmp/bvg-template-payload.json")"
+
+  cat "$tmp"
+  echo
+  if [[ "$code" != "200" ]]; then
+    echo "Publish to ${host} failed with HTTP $code" >&2
+    exit 1
+  fi
+
+  # The home page must answer before the next environment gets the site.
+  code="$(curl -sS -o /dev/null -w "%{http_code}" --retry 3 --retry-all-errors "${PROTOCOL}://${host}/")"
+  if [[ "$code" != "200" ]]; then
+    echo "${host}/ answered HTTP $code after the publish" >&2
+    exit 1
+  fi
+}
+
+if [[ -n "${BVG_TOKEN:-}" ]]; then
+  publish "$BVG_HOST" "$BVG_TOKEN"
+  exit 0
 fi
+
+IFS=',' read -r -a environments <<< "${BVG_ENVIRONMENTS:-staging,accept,production}"
+for environment in "${environments[@]}"; do
+  environment="$(echo "$environment" | xargs)"
+  case "$environment" in
+    production) host="$BVG_HOST" ;;
+    staging|accept) host="${environment}.${BVG_HOST}" ;;
+    *) echo "Unknown environment: $environment" >&2; exit 1 ;;
+  esac
+  token="$(github_token "$host")"
+  echo "::add-mask::${token}"
+  publish "$host" "$token"
+done

@@ -2,11 +2,16 @@ name: Publish template to dok domain
 description: Push template files (HTML/CSS/JS/images) into a dok domain via publish token
 inputs:
   host:
-    description: Target host (accept.*, staging.*, or production hostname)
+    description: Production hostname; staging.<host> and accept.<host> are derived
     required: true
+  environments:
+    description: Comma-separated, in order (staging, accept, production); a failure stops the rest
+    required: false
+    default: staging,accept,production
   token:
-    description: Domain template publish token (dtt_...)
-    required: true
+    description: Legacy dtt_ token; publishes to host only. Leave empty to use the job's GitHub ID token (permissions id-token write)
+    required: false
+    default: ""
   paths:
     description: Comma-separated globs relative to repo root
     required: false
@@ -35,6 +40,7 @@ runs:
       env:
         BVG_HOST: ${{ inputs.host }}
         BVG_TOKEN: ${{ inputs.token }}
+        BVG_ENVIRONMENTS: ${{ inputs.environments }}
         BVG_PATHS: ${{ inputs.paths }}
         BVG_REPO: ${{ inputs.repo }}
         BVG_BRANCH: ${{ inputs.branch }}
