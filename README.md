@@ -15,9 +15,8 @@ Authorization is enforced by dok (`user.admin?`). This template just renders acc
 ## How to use this template
 
 1. Fork (or *Use this template*) on GitHub.
-2. In **Admin → Settings → Template** on your domain, choose **Custom** and create a publish token (`dtt_…`).
-3. Store the token as a repo secret (see below).
-4. Push to `main` — the Action publishes a full snapshot to `POST /api/v1/template/publish`.
+2. Bind the repo to your domain in dok (`Domain#template_repo`, a data migration; dok#884). No secret: the job's GitHub ID token proves the repo.
+3. Push to `main` — the Action publishes a full snapshot to `POST /api/v1/template/publish` on `staging.<host>`, `accept.<host>` and `<host>`.
 
 There is no pull/sync and no “Sync now”. The old webhook (`/webhooks/github/assets`) returns 410.
 
@@ -79,22 +78,9 @@ No JavaScript, no Rails changes. Authorization is still enforced by dok; this is
 
 ## Publish on push
 
-The repo ships with `.github/workflows/publish-template.yml`. This one tree publishes to **two** domain families (geert.link and nm.nu).
+The repo ships with `.github/workflows/publish-template.yml`. This one tree publishes to geert.link, nm.nu, koek.in, dox.onl and knst.link, each first on `staging.` and `accept.`. No secrets: the job's GitHub ID token proves this repo (dok#884).
 
-One-time setup in **Settings → Secrets → Actions**:
-
-| Secret | Host |
-|---|---|
-| `BVG_TEMPLATE_TOKEN_GEERT_LINK` | geert.link |
-| `BVG_TEMPLATE_TOKEN_NM_NU` | nm.nu |
-| `BVG_TEMPLATE_TOKEN_GEERT_LINK_STAGING` | staging.geert.link |
-| `BVG_TEMPLATE_TOKEN_NM_NU_STAGING` | staging.nm.nu |
-| `BVG_TEMPLATE_TOKEN_GEERT_LINK_ACCEPT` | accept.geert.link |
-| `BVG_TEMPLATE_TOKEN_NM_NU_ACCEPT` | accept.nm.nu |
-
-Tokens: **Admin → Settings → Template → Custom → Create publish token** (`dtt_…`). One token per host.
-
-Local (do not log tokens):
+Local, with a `dtt_` token of one host (do not log it):
 
 ```bash
 BVG_HOST=accept.geert.link BVG_TOKEN=dtt_... \
