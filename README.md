@@ -7,6 +7,7 @@ In use on **geert.link** and **nm.nu** (shorteners, with the admin shell) and on
 ## What it does
 
 - **Public landing**: a bare page per domain (board "Korte links"): the name, one line on what the links are, "Mail me" and a small sign-in link. Built by `scripts/build-bare.py` into `index.html` and `hosts/<host>/index.html`
+- **Search and share**: each bare home is indexable (no `noindex`) and carries its own title and description, a canonical `https://<host>/` (Dutch only, so no hreflang), Open Graph and Twitter tags and a JSON-LD WebSite, all pointing at production. Text per host is in `SEO` in `scripts/build-bare.py`. The share image `hosts/<host>/images/og.png` (1200×630) is built by `python3 scripts/build-og.py` (Pillow) from the same line; commit it with the script
 - **Admin chrome**: clean dark dashboard with `Links` + `Settings` nav, auto-redirects logged-in admins to `/admin/links`
 - **Non-admin lockout**: regular users who sign in see a "nothing here for you" card with a logout button — no nav, no access
 
@@ -31,7 +32,7 @@ There is no pull/sync and no “Sync now”. The old webhook (`/webhooks/github/
 | `css/landing.css`| Styling for the public landing                         |
 | `css/app.css`    | Styling for the logged-in shell + Rails content        |
 | `images/`        | Logo/favicon served by TemplateServer (`/images/*`)    |
-| `hosts/<host>/images/` | A host's own icon (`logo.png`, `apple-touch.png`): geert.link's mark; koek.in, dox.onl and knst.link have the Appfabriek icon, since the bare design has no mark |
+| `hosts/<host>/images/` | The host's share image (`og.png`) and its own icon (`logo.png`, `apple-touch.png`): geert.link's mark; koek.in, dox.onl and knst.link have the Appfabriek icon, since the bare design has no mark |
 | `icons/`         | Extra icon pack (not served unless published under `images/`) |
 | `.github/workflows/publish-template.yml` | Push snapshot to dok |
 | `.github/actions/publish-template/` | Composite action + `publish.sh` |

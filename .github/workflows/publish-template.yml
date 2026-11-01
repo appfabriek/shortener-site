@@ -26,13 +26,13 @@ jobs:
           - host: geert.link
           - host: nm.nu
           # Not shorteners (yet): only the bare home, no admin shell (app.html),
-          # and the Appfabriek icon from hosts/<host>/images/.
+          # the Appfabriek icon and the share image from hosts/<host>/images/.
           - host: koek.in
-            paths: index.html,css/bare.css,fonts/**/*,images/logo.png,images/apple-touch.png
+            paths: index.html,css/bare.css,fonts/**/*,images/logo.png,images/apple-touch.png,images/og.png
           - host: dox.onl
-            paths: index.html,css/bare.css,fonts/**/*,images/logo.png,images/apple-touch.png
+            paths: index.html,css/bare.css,fonts/**/*,images/logo.png,images/apple-touch.png,images/og.png
           - host: knst.link
-            paths: index.html,css/bare.css,fonts/**/*,images/logo.png,images/apple-touch.png
+            paths: index.html,css/bare.css,fonts/**/*,images/logo.png,images/apple-touch.png,images/og.png
     name: Publish → ${{ matrix.host }}
     steps:
       - uses: actions/checkout@v4
