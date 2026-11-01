@@ -16,7 +16,7 @@ Authorization is enforced by dok (`user.admin?`). This template just renders acc
 
 1. Fork (or *Use this template*) on GitHub.
 2. Bind the repo to your domain in dok (`Domain#template_repo`, a data migration; dok#884). No secret: the job's GitHub ID token proves the repo.
-3. Push to `main` — the Action publishes a full snapshot to `POST /api/v1/template/publish` on `staging.<host>`, `accept.<host>` and `<host>`.
+3. Open a pull request — the Action publishes a full snapshot to `POST /api/v1/template/publish` on `staging.<host>` only, for review. Merging to `main` publishes it to `accept.<host>` and `<host>`.
 
 There is no pull/sync and no “Sync now”. The old webhook (`/webhooks/github/assets`) returns 410.
 
@@ -78,7 +78,7 @@ No JavaScript, no Rails changes. Authorization is still enforced by dok; this is
 
 ## Publish on push
 
-The repo ships with `.github/workflows/publish-template.yml`. This one tree publishes to geert.link, nm.nu, koek.in, dox.onl and knst.link, each first on `staging.` and `accept.`. No secrets: the job's GitHub ID token proves this repo (dok#884).
+The repo ships with `.github/workflows/publish-template.yml`. This one tree publishes to geert.link, nm.nu, koek.in, dox.onl and knst.link: a pull request to their `staging.` hosts only, for review, and `main` to each, first on `accept.`. No secrets: the job's GitHub ID token proves this repo (dok#884).
 
 Local, with a `dtt_` token of one host (do not log it):
 

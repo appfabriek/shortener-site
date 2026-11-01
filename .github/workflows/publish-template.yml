@@ -3,11 +3,17 @@ name: Publish template to dok
 on:
   push:
     branches: [main]
+  # A pull request publishes to staging.<host> only, for review; main to accept and production.
+  pull_request:
   workflow_dispatch:
 
 permissions:
   contents: read
   id-token: write
+
+# One publish at a time per stage; on staging the latest pull request wins.
+concurrency:
+  group: publish-${{ github.ref == 'refs/heads/main' && 'main' || 'staging' }}
 
 jobs:
   publish:
@@ -40,6 +46,7 @@ jobs:
       - name: Publish to ${{ matrix.host }}
         uses: ./.github/actions/publish-template
         with:
+          environments: ${{ github.ref == 'refs/heads/main' && 'accept,production' || 'staging' }}
           host: ${{ matrix.host }}
           # Empty means the action's default set.
           paths: ${{ matrix.paths }}
