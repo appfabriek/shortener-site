@@ -16,12 +16,13 @@
   <!-- Sends admins to the home link console (create form + recent links);
        non-admins get bounced by dok authz. -->
   <meta name="bvg-post-login" content="/">
+  <!-- The brand logo falls back to /images/logo.png; no inline onerror, so a strict script-src allows it. -->
+  <script nonce="{{csp_nonce}}">document.addEventListener("error", function (event) { var img = event.target; if (img.classList && img.classList.contains("brand-logo") && !img.dataset.fallback) { img.dataset.fallback = "1"; img.src = "/images/logo.png"; } }, true);</script>
 </head>
 <body data-role="{{user_role}}">
   <header class="app-header">
     <a href="/" class="app-brand">
-      <img class="brand-logo" src="{{brand_logo}}" width="28" height="28" alt="" decoding="async"
-           onerror="this.onerror=null;this.src='/images/logo.png'">
+      <img class="brand-logo" src="{{brand_logo}}" width="28" height="28" alt="" decoding="async">
       <span class="app-brand-name">{{brand_name}}</span>
     </a>
     <nav class="app-nav admin-only">
