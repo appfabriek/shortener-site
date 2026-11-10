@@ -133,6 +133,7 @@ def page(host: str) -> str:
     <p class="bare-note bare-admin"><a href="/session/new">Inloggen</a></p>
   </main>
   {{{{footer}}}}
+  <p class="bare-p2tp"><a href="https://p2tp.org/">Continuïteit via Stichting p2tp (in oprichting)</a></p>
 </body>
 </html>
 '''

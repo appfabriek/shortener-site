@@ -42,13 +42,12 @@
   <link rel="stylesheet" href="/css/links.css">
   <link rel="stylesheet" href="/css/bare.css">
   <link rel="icon" href="{{brand_logo}}">
-  <!-- The brand logo falls back to /images/logo.png; no inline onerror, so a strict script-src allows it. -->
-  <script nonce="{{csp_nonce}}">document.addEventListener("error", function (event) { var img = event.target; if (img.classList && img.classList.contains("brand-logo") && !img.dataset.fallback) { img.dataset.fallback = "1"; img.src = "/images/logo.png"; } }, true);</script>
 </head>
 <body data-role="{{user_role}}" style="--bare-dot:#111111">
   <header class="landing-nav admin-only">
     <a href="/" class="landing-brand">
-      <img class="brand-logo" src="{{brand_logo}}" width="28" height="28" alt="" decoding="async">
+      <img class="brand-logo" src="{{brand_logo}}" width="28" height="28" alt="" decoding="async"
+           onerror="this.onerror=null;this.src='/images/logo.png'">
       {{brand_name}}
     </a>
     <nav>
@@ -67,5 +66,6 @@
     <p class="bare-note bare-admin"><a href="/session/new">Inloggen</a></p>
   </main>
   {{footer}}
+  <p class="bare-p2tp"><a href="https://p2tp.org/">Continuïteit via Stichting p2tp (in oprichting)</a></p>
 </body>
 </html>

@@ -44,3 +44,8 @@ body:not([data-role="admin"]) footer a { color: var(--bare-mute); }
 @media (max-width: 640px) {
   .bare { padding: 64px 20px; }
 }
+
+/* The p2tp line under the dok footer (Stichting p2tp, continuity of the product). */
+.bare-p2tp{margin:0 0 24px;padding:0 16px;text-align:center;font-size:12px;color:#a1a1aa}
+.bare-p2tp a{color:inherit;text-decoration:underline}
+.bare-p2tp a:hover{color:#52525b}
