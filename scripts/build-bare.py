@@ -95,8 +95,7 @@ def head_meta(host: str) -> str:
 # Only for a signed-in admin of a shortener domain: the dark link console.
 CONSOLE = '''  <header class="landing-nav admin-only">
     <a href="/" class="landing-brand">
-      <img class="brand-logo" src="{{brand_logo}}" width="28" height="28" alt="" decoding="async"
-           onerror="this.onerror=null;this.src='/images/logo.png'">
+      <img class="brand-logo" src="{{brand_logo}}" width="28" height="28" alt="" decoding="async">
       {{brand_name}}
     </a>
     <nav>
@@ -109,6 +108,11 @@ CONSOLE = '''  <header class="landing-nav admin-only">
     {{content}}
   </section>
 '''
+
+
+LOGO_FALLBACK = '''
+  <!-- The brand logo falls back to /images/logo.png; no inline onerror, so a strict script-src allows it. -->
+  <script nonce="{{csp_nonce}}">document.addEventListener("error", function (event) { var img = event.target; if (img.classList && img.classList.contains("brand-logo") && !img.dataset.fallback) { img.dataset.fallback = "1"; img.src = "/images/logo.png"; } }, true);</script>'''
 
 
 def page(host: str) -> str:
@@ -124,7 +128,7 @@ def page(host: str) -> str:
   {{{{csrf_meta}}}}
 {head_meta(host)}{console_css}
   <link rel="stylesheet" href="/css/bare.css">
-  <link rel="icon" href="{{{{brand_logo}}}}">
+  <link rel="icon" href="{{{{brand_logo}}}}">{LOGO_FALLBACK if console else ""}
 </head>
 <body data-role="{{{{user_role}}}}" style="--bare-dot:{dot}">
 {CONSOLE if console else ""}  <main class="bare guest-only">
